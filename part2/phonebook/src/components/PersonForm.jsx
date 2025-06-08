@@ -14,7 +14,7 @@ const PersonForm = ({ newPerson, handleSubmit, handleFormChange }) => {
         />
       </div>
       <div>
-        <button type="submit">add</button>
+        <button className="addBtn" type="submit">add</button>
       </div>
     </form>
   );

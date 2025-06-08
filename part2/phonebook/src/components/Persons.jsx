@@ -9,11 +9,14 @@ const Persons = ({ filterStr, allPersons, handleRemove }) => {
     filterStr.trim().length === 0 ? allPersons : filteredPersons();
 
   return (
-    <div>
+    <div className="persons">
       {persons.map((person) => (
         <p key={person.id}>
           {person.name} {person.number}
-          <button onClick={() => handleRemove(person.id, person.name)}>
+          <button
+            className="deleteBtn"
+            onClick={() => handleRemove(person.id, person.name)}
+          >
             delete
           </button>
         </p>
