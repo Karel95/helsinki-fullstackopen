@@ -4,17 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:ui": "rm -rf frontend && cd ../part_2/phonebook/ && npm run build && cp -r dist ../../part_3/frontend",
-    "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs",
+    "build:ui": "rm -rf ../part3/phonebook-frontend && cd ../part2/phonebook && npm run build --prod && cp -r dist ../../part3/phonebook-frontend",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Juha Järvensivu",
+  "author": "Karel Hernandez",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
