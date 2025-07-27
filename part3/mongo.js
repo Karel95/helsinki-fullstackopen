@@ -1,14 +1,12 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-  console.log('give password as argument')
+if (!process.env.MONGODB_URI) {
+  console.log('Error: MONGODB_URI environment variable is not defined in .env file')
   process.exit(1)
 }
 
-const name = process.argv[3]
-const number = process.argv[4] ? process.argv[4] : ''
-
-const url = 'mongodb+srv://karel:<db_password>@cluster0.2svuipe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const url = process.env.MONGODB_URI
 
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
@@ -20,26 +18,29 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-const person = new Person({
-  name,
-  number,
-})
-
-if (process.argv.length === 3) {
+// Case 1: List all persons (e.g., `node mongo.js`)
+if (process.argv.length === 2) {
+  console.log('phonebook:')
   Person.find({}).then((persons) => {
-    console.log('phonebook:')
-    persons.forEach((person) => {
-      console.log(person.name, person.number)
+    persons.forEach((p) => {
+      console.log(p.name, p.number)
     })
     mongoose.connection.close()
   })
-} else {
-  person.save().then(() => {
+// Case 2: Add a new person (e.g., `node mongo.js "Arto Vihavainen" "045-1232456"`)
+} else if (process.argv.length === 4) {
+  const name = process.argv[2]
+  const number = process.argv[3]
+
+  const person = new Person({ name, number })
+
+  person.save().then((result) => {
+    console.log(`added ${result.name} number ${result.number} to phonebook`)
     mongoose.connection.close()
-    console.log(
-      `added ${person.name} ${
-        person.number.length > 0 ? `number ${person.number}` : 'without number'
-      } to phonebook`
-    )
   })
+} else {
+  console.log('Invalid number of arguments.')
+  console.log('To list all entries: node mongo.js')
+  console.log('To add an entry:    node mongo.js "<name>" "<number>"')
+  mongoose.connection.close()
 }

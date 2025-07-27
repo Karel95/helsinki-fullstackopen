@@ -4,7 +4,9 @@ This is a simple backend for a phonebook application, built with Node.js and Exp
 
 ## Live Demo
 
-You can access the live API here:
+You can access the live application demo here:
+[https://helsinki-fullstackopen-part3.onrender.com](https://helsinki-fullstackopen-part3.onrender.com)
+and the API here:
 [https://helsinki-fullstackopen-part3.onrender.com/api/persons](https://helsinki-fullstackopen-part3.onrender.com/api/persons)
 
 ## Features
@@ -51,23 +53,49 @@ You can access the live API here:
 
 3. **Set up environment variables:**
 
-    Create a `.env` file in the project root and add the following variables:
+    Create a `.env` file in the project root and add the required environment variables based on existing .env.template.
+
+4. **Build the frontend UI**
 
     ```bash
-    MONGODB_URI=your-mongodb-connection-string
-    PORT=3001
+    npm run build:ui
     ```
 
-4. **Start the server:**
+5. **Start the server:**
 
     ```bash
     npm start
     ```
 
-    The server will be running at `http://localhost:3001`.
+    The server will be running at `http://localhost:3001` if no port is specified in the `.env` file.
 
 ### Available Scripts
 
+* `build:ui`: Builds the frontend UI.
 * `npm start`: Starts the server in production mode.
 * `npm run dev`: Starts the server in development mode using `nodemon`.
 * `npm run lint`: Runs ESLint to analyze the code for errors.
+
+## Command-Line Database Script
+
+The project includes a command-line script (`mongo.js`) for direct interaction with the MongoDB database. This script can be used to list all phonebook entries or add a new one.
+
+### Usage
+
+You can run the script from the `part3` directory using `node`.
+
+#### List all entries
+
+To fetch and display all entries in the phonebook:
+
+```bash
+node mongo.js
+```
+
+#### Add a new entry
+
+To add a new person to the phonebook, provide the name and number as arguments. If the name contains spaces, enclose it in quotes.
+
+```bash
+node mongo.js "Arto Hellas" "040-123456"
+```
