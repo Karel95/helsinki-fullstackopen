@@ -104,10 +104,10 @@ describe('deletion of a blog', () => {
   test('should succeed with status code 204 if id is valid', async () => {
     const blogsAtStart = await helper.blogsInDb()
     const loggedUser = await api.post('/api/login').send(helper.loginUser)
-    const response = await api.post('/api/blogs').set('authorization', `Bearer ${loggedUser.body.token}`).send(helper.newBlog)
+    const response = await api.post('/api/blogs').set('Authorization', `Bearer ${loggedUser.body.token}`).send(helper.newBlog)
     const blogsAfterAddition = await helper.blogsInDb()
 
-    await api.delete(`/api/blogs/${response.body.id}`).set('authorization', `Bearer ${loggedUser.body.token}`).expect(204)
+    await api.delete(`/api/blogs/${response.body.id}`).set('Authorization', `Bearer ${loggedUser.body.token}`).expect(204)
     const blogsAtEnd = await helper.blogsInDb()
 
     expect(blogsAfterAddition).toHaveLength(blogsAtStart.length + 1)
