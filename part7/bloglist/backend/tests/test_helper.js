@@ -112,5 +112,5 @@ module.exports = {
   userWithOutPassword,
   userWithTooShortPassword,
   usersInDb,
-  addLoginUser
+  addLogin.js
 }
