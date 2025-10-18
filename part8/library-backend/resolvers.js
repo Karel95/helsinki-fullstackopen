@@ -121,7 +121,7 @@ const resolvers = {
         if (error instanceof mongoose.Error.ValidationError) {
           console.log(error.message);
 
-          if (error.errors.hasOwnProperty("usename")) {
+          if (error.errors.hasOwnProperty("username")) {
             errorMessage = "Creating user failed. User name is not valid";
           } else if (error.errors.hasOwnProperty("favoriteGenre")) {
             errorMessage =
@@ -153,7 +153,7 @@ const resolvers = {
         username: user.username,
         id: user._id,
       }
-      return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
+      return { value: jwt.sign(userForToken, process.env.SECRET) }
     }
   },
   Subscription: {

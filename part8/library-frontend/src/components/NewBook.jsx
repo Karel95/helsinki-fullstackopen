@@ -57,7 +57,7 @@ const NewBook = ({ show, setError, favoriteGenre }) => {
           const authorExists = allAuthorsData.find(a => a.name === bookData.author.name)
 
           if (!authorExists) {
-            const newAuthor = { ...bookData.author, bookCount: 1, born: null, id: null}
+            const newAuthor = { ...bookData.author, bookCount: 1, born: null}
             allAuthorsData.push(newAuthor)
           } else {
             allAuthorsData = allAuthorsData.map(a => {
